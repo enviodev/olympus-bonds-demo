@@ -1,0 +1,77 @@
+enum BondType {
+  FixedTerm
+  FixedExpiry
+}
+
+type Market {
+  id: ID! # <contract address>/type/<market id>
+  marketId: BigInt!
+
+  bondContract: String!
+  bondType: BondType!
+  owner: String!
+  payoutToken: String!
+  quoteToken: String!
+  vesting: BigInt!
+  durationMilliseconds: BigInt!
+  durationActualMilliseconds: BigInt
+
+  capacityInPayoutToken: BigDecimal!
+  totalDebtInPayoutToken: BigDecimal!
+  maxPayoutInPayoutToken: BigDecimal!
+
+  initialPriceInQuoteToken: BigDecimal!
+  minPriceInQuoteToken: BigDecimal!
+
+  soldInPayoutToken: BigDecimal!
+  purchasedInQuoteToken: BigDecimal!
+
+  createdBlock: BigInt!
+  createdDate: String!
+  createdTimestamp: BigInt!
+
+  closedBlock: BigInt
+  closedDate: String
+  closedTimestamp: BigInt
+}
+
+type MarketCreatedEvent {
+  id: ID! # <contract address>/type/<market id>
+  marketId: BigInt!
+  bondContract: String!
+  bondType: BondType!
+  date: String!
+  timestamp: BigInt!
+  block: BigInt!
+  market: Market!
+}
+
+type MarketClosedEvent {
+  id: ID! # <contract address>/type/<market id>
+  marketId: BigInt!
+  bondContract: String!
+  bondType: BondType!
+  date: String!
+  timestamp: BigInt!
+  block: BigInt!
+  market: Market!
+}
+
+type BondPurchase {
+  id: ID!
+  date: String!
+  block: BigInt!
+  timestamp: BigInt!
+  transaction: String!
+  contract: String!
+  bondType: BondType!
+  marketId: BigInt!
+  referrer: String!
+  amountInQuoteToken: BigDecimal!
+  payoutInPayoutToken: BigDecimal!
+  payoutToken: String!
+  quoteToken: String!
+  expiryTimestamp: BigInt!
+  expiryDate: String!
+}
+

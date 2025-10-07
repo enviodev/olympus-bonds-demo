@@ -1,0 +1,62 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: envio-indexer
+networks:
+- id: 1
+  start_block: 0
+  contracts:
+  - name: BondFixedExpirySDA
+    address:
+    - 0x007FEA7A23da99F3Ce7eA34F976f32BF79A09C43
+    - 0x007FEA2a31644F20b0fE18f69643890b6F878AA6
+    - 0x007FEA32545a39Ff558a1367BBbC1A22bc7ABEfD
+    start_block: 0
+    handler: src/handleFixedExpiryBond.ts
+    events:
+    - event: MarketClosed(uint256 indexed id)
+      field_selection:
+        transaction_fields:
+          - hash
+    - event: MarketCreated(uint256 indexed id, address indexed payoutToken, address indexed quoteToken, uint48 vesting, uint256 initialPrice)
+      field_selection:
+        transaction_fields:
+          - hash
+  - name: BondFixedTermSDA
+    address:
+    - 0x007F7A58103a31109F848Df1A14F7020E1F1b28A
+    - 0x007F7A6012A5e03f6F388dd9F19Fd1D754Cfc128
+    - 0x007F7A1cb838A872515c8ebd16bE4b14Ef43a222
+    start_block: 0
+    handler: src/handleFixedTermBond.ts
+    events:
+    - event: MarketClosed(uint256 indexed id)
+      field_selection:
+        transaction_fields:
+          - hash
+    - event: MarketCreated(uint256 indexed id, address indexed payoutToken, address indexed quoteToken, uint48 vesting, uint256 initialPrice)
+      field_selection:
+        transaction_fields:
+          - hash
+  - name: BondFixedTermTeller
+    address:
+    - 0x007F77B53ed0F058616335bc040cD326E125daE0
+    - 0x007F7735baF391e207E3aA380bb53c4Bd9a5Fed6
+    start_block: 0
+    handler: src/handleFixedTermTeller.ts
+    events:
+    - event: Bonded(uint256 indexed id, address indexed referrer, uint256 amount, uint256 payout)
+      field_selection:
+        transaction_fields:
+          - hash
+  - name: BondFixedExpiryTeller
+    address:
+    - 0x007FE7c498A2Cf30971ad8f2cbC36bd14Ac51156
+    - 0x007FE70dc9797C4198528aE43d8195ffF82Bdc95
+    start_block: 0
+    handler: src/handleFixedExpiryTeller.ts
+    events:
+    - event: Bonded(uint256 indexed id, address indexed referrer, uint256 amount, uint256 payout)
+      field_selection:
+        transaction_fields:
+          - hash
+unordered_multichain_mode: true
+preload_handlers: true
