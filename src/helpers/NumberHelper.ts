@@ -1,4 +1,4 @@
-import { BigDecimal } from "generated";
+import { BigDecimal } from "envio";
 
 export const DEFAULT_DECIMALS = 18;
 export const ZERO_BI = BigInt(0);

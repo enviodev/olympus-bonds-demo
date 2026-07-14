@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=./node_modules/envio/evm.schema.json
 name: envio-indexer
-networks:
+chains:
 - id: 1
   start_block: 0
   contracts:
@@ -58,5 +58,3 @@ networks:
       field_selection:
         transaction_fields:
           - hash
-unordered_multichain_mode: true
-preload_handlers: true

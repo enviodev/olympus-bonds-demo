@@ -1,8 +1,5 @@
 import assert from "assert";
-import { 
-  TestHelpers,
-  BondFixedExpirySDA_MarketClosed
-} from "generated";
+import { TestHelpers, BondFixedExpirySDA_MarketClosed } from "envio";
 const { MockDb, BondFixedExpirySDA } = TestHelpers;
 
 describe("BondFixedExpirySDA contract MarketClosed event tests", () => {

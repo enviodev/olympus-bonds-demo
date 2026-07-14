@@ -21,13 +21,11 @@
     "typescript": "5.2.2"
   },
   "dependencies": {
-    "envio": "2.30.0",
+    "envio": "3.2.1",
     "viem": "^2.37.12"
   },
-  "optionalDependencies": {
-    "generated": "./generated"
-  },
   "engines": {
-    "node": ">=18.0.0"
-  }
+    "node": ">=22.0.0"
+  },
+  "type": "module"
 }

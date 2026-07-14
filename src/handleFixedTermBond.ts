@@ -1,6 +1,4 @@
-import {
-  BondFixedTermSDA,
-} from "generated";
+import { indexer } from "envio";
 import {
   Market_t,
   MarketCreatedEvent_t,
@@ -18,7 +16,9 @@ import { toDecimal, ZERO_BD } from "./helpers/NumberHelper";
 
 const BOND_TYPE = "FixedTerm";
 
-BondFixedTermSDA.MarketCreated.handler(async ({ event, context }) => {
+indexer.onEvent(
+  { contract: "BondFixedTermSDA", event: "MarketCreated" },
+  async ({ event, context }) => {
   if (!isOHMMarket(event.params.payoutToken, event.params.quoteToken)) {
     console.log("Ignoring market creation for token other than OHM");
     return;
@@ -87,9 +87,12 @@ BondFixedTermSDA.MarketCreated.handler(async ({ event, context }) => {
     context.log.error(`Error in MarketCreated handler: ${error}`);
     // Don't throw - let the indexer continue
   }
-});
+}
+);
 
-BondFixedTermSDA.MarketClosed.handler(async ({ event, context }) => {
+indexer.onEvent(
+  { contract: "BondFixedTermSDA", event: "MarketClosed" },
+  async ({ event, context }) => {
   const marketId = getId(event.srcAddress, BOND_TYPE, event.params.id);
   const market = await context.Market.get(marketId);
   
@@ -139,4 +142,5 @@ BondFixedTermSDA.MarketClosed.handler(async ({ event, context }) => {
     context.log.error(`Error in MarketClosed handler: ${error}`);
     // Don't throw - let the indexer continue
   }
-});
+}
+);

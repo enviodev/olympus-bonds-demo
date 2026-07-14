@@ -1,6 +1,4 @@
-import {
-  BondFixedExpiryTeller,
-} from "generated";
+import { indexer } from "envio";
 import {
   BondPurchase_t,
 } from "generated/src/db/Entities.gen";
@@ -15,7 +13,9 @@ import { toDecimal } from "./helpers/NumberHelper";
 
 const BOND_TYPE = "FixedExpiry";
 
-BondFixedExpiryTeller.Bonded.handler(async ({ event, context }) => {
+indexer.onEvent(
+  { contract: "BondFixedExpiryTeller", event: "Bonded" },
+  async ({ event, context }) => {
   console.log(`Creating BondPurchase for teller contract ${event.srcAddress} and market id ${event.params.id.toString()}`);
 
   try {
@@ -76,4 +76,5 @@ BondFixedExpiryTeller.Bonded.handler(async ({ event, context }) => {
     context.log.error(`Error in Bonded handler: ${error}`);
     // Don't throw - let the indexer continue
   }
-});
+}
+);

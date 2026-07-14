@@ -1,4 +1,4 @@
-import { BigDecimal } from "generated";
+import { BigDecimal } from "envio";
 import { toDecimal } from "./NumberHelper";
 
 export function getId(
